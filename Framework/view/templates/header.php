@@ -4,6 +4,8 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Calendar</title>
-	<link rel="stylesheet" href="public/CSS/main.css">
+	<link rel="stylesheet" type="text/css" href="/kalender/framework/CSS/main.css">
+	
+	
 </head>
 <body>
