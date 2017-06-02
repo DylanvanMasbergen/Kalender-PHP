@@ -18,7 +18,7 @@
 
     <h1><ul><?=$month[$Birthday["month"]-1];?></ul></h1>
     <h2><ul><?=$Birthday["day"];?></ul></h2>
-    <a href= "edit"><ul><?=$Birthday["person"];?> <a href="delete.php?">x</a></ul></a><br>
+    <a href= "birthday/edit/<?= $Birthday['id'];?>"><ul><?=$Birthday["person"];?></a> <a href="delete">x</a></ul></a><br>
     
   
 

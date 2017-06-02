@@ -10,13 +10,27 @@ function getAllBirthdays()
 	return $query->fetchAll();
 }
 
+function getBirthday($id) 
+{
+	$db = openDatabaseConnection();
+	$sql = "SELECT * FROM birthdays WHERE id = :id ";
+	$query = $db->prepare($sql);
+	$query->execute(array(
+		":id" => $id));
+	$db = null;
+	return $query->fetch();
+}
+
+
 function CreateBirthday() {
+	$id = isset($_POST['id']) ? $_POST['id'] : null;
 	$person = isset($_POST['person']) ? $_POST['person'] : null;
 	$day = isset($_POST['day']) ? $_POST['day'] : null;
 	$month = isset($_POST['month']) ? $_POST['month'] : null;
 	$year = isset($_POST['year']) ? $_POST['year'] : null;
 
-	if (strlen($person) == 0 || 
+	if (strlen($id) == 0 ||
+		strlen($person) == 0 || 
 		strlen($day) == 0 || 
 		strlen($month) == 0 || 
 		strlen($year) == 0) {
@@ -24,9 +38,10 @@ function CreateBirthday() {
 	}
 	
 	$db = openDatabaseConnection();
-	$sql = "INSERT INTO birthdays(person, day, month, year) VALUES (:person, :day, :month, :year)";
+	$sql = "INSERT INTO birthdays( id, person, day, month, year) VALUES ( :id, :person, :day, :month, :year)";
 	$query = $db->prepare($sql);
 	$query->execute(array(
+		':id' => $id,
 		':person' => $person,
 		':day' => $day,
 		':month' => $month,
@@ -38,7 +53,8 @@ function CreateBirthday() {
 }
 
 function EditBirthday() 
-{
+{	
+	$id = isset($_POST['id']) ? $_POST['id'] : null;
 	$person = isset($_POST['person']) ? $_POST['person'] : null;
 	$day = isset($_POST['day']) ? $_POST['day'] : null;
 	$month = isset($_POST['month']) ? $_POST['month'] : null;
@@ -49,9 +65,10 @@ function EditBirthday()
 	}
 	
 	$db = openDatabaseConnection();
-	$sql = "UPDATE birtdays SET person = :person, day = :day, month = :month, year = :year WHERE id = :id";
+	$sql = "UPDATE birthdays SET person = :person, day = :day, month = :month, year = :year WHERE id = :id";
 	$query = $db->prepare($sql);
 	$query->execute(array(
+		':id' => $id,
 		':person' => $person,
 		':day' => $day,
 		':month' => $month,
@@ -68,7 +85,7 @@ function DeleteBirthday($id = null)
 	}
 	
 	$db = openDatabaseConnection();
-	$sql = "DELETE FROM birtdays WHERE id=:id ";
+	$sql = "DELETE FROM birthdays WHERE id=:id ";
 	$query = $db->prepare($sql);
 	$query->execute(array(
 		':id' => $id));
