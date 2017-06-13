@@ -3,7 +3,7 @@
 function getAllBirthdays() 
 {
 	$db = openDatabaseConnection();
-	$sql = "SELECT * FROM birthdays";
+	$sql = "SELECT * FROM birthdays ORDER BY month, day";
 	$query = $db->prepare($sql);
 	$query->execute();
 	$db = null;
@@ -29,7 +29,7 @@ function CreateBirthday() {
 	$month = isset($_POST['month']) ? $_POST['month'] : null;
 	$year = isset($_POST['year']) ? $_POST['year'] : null;
 
-	if (strlen($id) == 0 ||
+	if (
 		strlen($person) == 0 || 
 		strlen($day) == 0 || 
 		strlen($month) == 0 || 

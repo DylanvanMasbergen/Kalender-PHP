@@ -1,33 +1,45 @@
-<p>Kalender</p>
+<h1>Kalender</h1>
 
 
 <ul>
 
+<?php 
 
-    <?php 
-    $month = array("januari","februari","maart","april","mei","juni","juli","augustus","september","oktober","november","december");
+$month = array("Januari","Februari","Maart","April","Mei","Juni","Juli","Augustus","September","Oktober","November","December");
 
+$lastMonth = '';
+$lastDay = '';
 
-    foreach ($Birthday as $Birthday){
-    	if(!array_key_exists($Birthday["month"], $month)){
-    		$month[$Birthday["month"]] = array();
-    	}?>
+foreach($Birthday as $Birthday) {
 
+    if ($lastMonth != $Birthday['month']) {
+        echo '<ul>';
+        echo '<h1>' . $month[$Birthday['month']-1] .'</h1>';
+        echo '</ul>';
 
+    }
 
+    if ($lastDay != $Birthday['day']) {
+        echo '<ul>';
+        echo '<h2>' . $Birthday['day'] .'</h2>';
+        echo '</ul>';
 
-    <h1><ul><?=$month[$Birthday["month"]-1];?></ul></h1>
-    <h2><ul><?=$Birthday["day"];?></ul></h2>
-    <a href= "birthday/edit/<?= $Birthday['id'];?>"><ul><?=$Birthday["person"];?></a> <a href="delete">x</a></ul></a><br>
-    
-  
+    }
+?>
+    <a href= "<?= URL?>birthday/edit/<?=$Birthday['id'];?>">
+        <ul>
+            <?=$Birthday["person"];?>
+            <a href="<?= URL?>birthday/delete/<?= $Birthday['id'] ?>"onclick= "return confirm ('Weetje het zeker dat je het verjaardag wilt verwijderen');">x</a>
+        </ul>
+    </a>
+    <br>
 
-    <?php }?>
+<?php  
 
-
+    $lastMonth = $Birthday['month'];
+    $lastDay = $Birthday['day'];
+    }
+ ?>
 <a href=" <?= URL ?>birthday/create">Toevoegen</a>
 
 </ul>
-
-
-
